@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     float InitWalkPower = 30.0f;
     float maxWalkSpeed = 2.0f;
 
+    float JumpPower = 200.0f;
+
     // Use this for initialization
     void Start () {
         this.MyBody = GetComponent<Rigidbody>();
@@ -17,6 +19,11 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(IsSpaceKeyDown())
+        {
+            this.MyBody.AddForce(transform.up * this.JumpPower);
+        }
 
         float DownKey = KeyDown();
 
@@ -31,6 +38,11 @@ public class PlayerController : MonoBehaviour {
             transform.localScale = new Vector3(DownKey, 0.5f, 0.5f);
         }
 
+    }
+
+    private bool IsSpaceKeyDown()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
     }
 
     private float KeyDown()
